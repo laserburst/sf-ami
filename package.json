@@ -18,7 +18,7 @@
     "@salesforce/dev-scripts": "^10",
     "@types/fs-extra": "^11.0.4",
     "@types/sarif": "^2.1.7",
-    "eslint-plugin-sf-plugin": "^1.18.6",
+    "eslint-plugin-sf-plugin": "^1.20.16",
     "oclif": "^4.17.34",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
