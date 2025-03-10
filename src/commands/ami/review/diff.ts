@@ -164,21 +164,23 @@ export default class AmiReviewDiff extends SfCommand<void> {
         const commitSha = await GitHelper.verifyCommitSha(repoDir, flags.from);
 
         aiResponse.reviews.forEach((review) => {
+          let formatedCodeSuggestion: string | undefined;
+
+          // In response LLM sometimes for some reason escapes new line character and ignores instructions, so we need to unescape it
+          // eslint-disable-next-line no-param-reassign
+          formatedCodeSuggestion = review.codeSuggestion.replace(/\\n/g, '\n');
+
           // get indent level of the code snippet
           const indentLevel = codeSnippetLines[review.startLine - 1].search(/\S/);
 
           // add indent level to each line of the code suggestion
           // eslint-disable-next-line no-param-reassign
-          review.codeSuggestion = review.codeSuggestion
+          formatedCodeSuggestion = formatedCodeSuggestion
             .split(/(?<!\\)(?:\r?\n)/)
             .map((line) => ' '.repeat(indentLevel) + line)
             .join('\n');
 
-          // In response LLM sometimes for some reason escapes new line character and ignores instructions, so we need to unescape it
-          // eslint-disable-next-line no-param-reassign
-          review.codeSuggestion = review.codeSuggestion.replace(/\\n/g, '\n');
-
-          const codeSuggestionLines = review.codeSuggestion.split(/(?<!\\)(?:\r?\n)/);
+          const codeSuggestionLines = formatedCodeSuggestion.split(/(?<!\\)(?:\r?\n)/);
           const prependLine = codeSnippetLines[review.startLine - 1];
           const appendLine = codeSnippetLines[review.endLine - 1];
 
@@ -188,7 +190,7 @@ export default class AmiReviewDiff extends SfCommand<void> {
             case 'PREPEND':
               if (codeSuggestionLines[codeSuggestionLines.length - 1] !== prependLine) {
                 // eslint-disable-next-line no-param-reassign
-                review.codeSuggestion = review.codeSuggestion + '\n' + prependLine;
+                formatedCodeSuggestion = formatedCodeSuggestion + '\n' + prependLine;
               }
               // eslint-disable-next-line no-param-reassign
               review.endLine = review.startLine;
@@ -196,14 +198,19 @@ export default class AmiReviewDiff extends SfCommand<void> {
             case 'APPEND':
               if (codeSuggestionLines[0] !== appendLine) {
                 // eslint-disable-next-line no-param-reassign
-                review.codeSuggestion = appendLine + '\n' + review.codeSuggestion;
+                formatedCodeSuggestion = appendLine + '\n' + formatedCodeSuggestion;
               }
               // eslint-disable-next-line no-param-reassign
               review.startLine = review.endLine;
               break;
             case 'REMOVE':
               // eslint-disable-next-line no-param-reassign
-              review.codeSuggestion = '';
+              formatedCodeSuggestion = '';
+              break;
+            case 'REPLACE':
+              if (formatedCodeSuggestion.trim().length === 0) {
+                formatedCodeSuggestion = undefined;
+              }
               break;
             default:
               break;
@@ -219,7 +226,7 @@ export default class AmiReviewDiff extends SfCommand<void> {
           const prCommentRequest: PullRequestComment = {
             prNumber: flags['pull-request-id']!,
             message: review.comment,
-            suggestedCodeChange: review.codeSuggestion,
+            suggestedCodeChange: formatedCodeSuggestion,
             sourceFile: filePath.replace(diffDir + '/', ''),
             startLine: review.startLine,
             endLine: review.endLine,
