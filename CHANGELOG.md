@@ -1,3 +1,9 @@
+## [0.1.5](https://github.com/laserburst/sf-ami/compare/0.1.4...0.1.5) (2025-03-10)
+
+### Bug Fixes
+
+- change trim() to trimEnd() as it was removing indentation on first line ([af355db](https://github.com/laserburst/sf-ami/commit/af355db18908586ced5eb06e78762e03d7f39c50))
+
 ## [0.1.4](https://github.com/laserburst/sf-ami/compare/0.1.3...0.1.4) (2025-03-10)
 
 ### Bug Fixes
