@@ -179,7 +179,7 @@ export default class AmiReviewDiff extends SfCommand<void> {
             .split(/(?<!\\)(?:\r?\n)/)
             .map((line) => ' '.repeat(indentLevel) + line)
             .join('\n')
-            .trim();
+            .trimEnd();
 
           const codeSuggestionLines = formatedCodeSuggestion.split(/(?<!\\)(?:\r?\n)/);
           const prependLine = codeSnippetLines[review.startLine - 1];
