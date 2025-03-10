@@ -11,7 +11,7 @@ export declare type PullRequestComment = {
   prNumber: string;
   commitId: string;
   message: string;
-  suggestedCodeChange: string;
+  suggestedCodeChange: string | undefined;
   startLine: number;
   endLine: number;
   sourceFile: string;
