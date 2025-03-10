@@ -1,3 +1,9 @@
+## [0.1.4](https://github.com/laserburst/sf-ami/compare/0.1.3...0.1.4) (2025-03-10)
+
+### Bug Fixes
+
+- remove extra new line from code suggestion ([62fd9a1](https://github.com/laserburst/sf-ami/commit/62fd9a12cc2fdab214111cdfa503a6031a1d64e7))
+
 ## [0.1.3](https://github.com/laserburst/sf-ami/compare/0.1.2...0.1.3) (2025-03-10)
 
 ### Bug Fixes
