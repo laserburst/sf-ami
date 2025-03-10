@@ -1,3 +1,9 @@
+## [0.1.2](https://github.com/laserburst/sf-ami/compare/0.1.1...0.1.2) (2025-03-10)
+
+### Bug Fixes
+
+- include Code Scan default config in npm package ([64919f8](https://github.com/laserburst/sf-ami/commit/64919f8cd6b8871df7ba8cb7e20b0636b7617760))
+
 ## [0.1.1](https://github.com/laserburst/sf-ami/compare/0.1.0...0.1.1) (2025-03-10)
 
 ### Bug Fixes
