@@ -1,3 +1,9 @@
+## [0.1.3](https://github.com/laserburst/sf-ami/compare/0.1.2...0.1.3) (2025-03-10)
+
+### Bug Fixes
+
+- indentation of suggested code now matches the indentation of the original code ([5c27376](https://github.com/laserburst/sf-ami/commit/5c27376270f53503f94839c617f2fa41a8ac7693))
+
 ## [0.1.2](https://github.com/laserburst/sf-ami/compare/0.1.1...0.1.2) (2025-03-10)
 
 ### Bug Fixes
