@@ -3,6 +3,7 @@
   "description": "Set of commands that activate AI assistance during Salesforce development or CI/CD work",
   "version": "0.1.5",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
     "@oclif/core": "^4",
     "@salesforce/core": "^8",
     "@salesforce/sf-plugins-core": "^12",
