@@ -1,3 +1,9 @@
+# [0.2.0](https://github.com/laserburst/sf-ami/compare/0.1.5...0.2.0) (2025-03-16)
+
+### Features
+
+- added anthropic ai support ([89817b1](https://github.com/laserburst/sf-ami/commit/89817b11019d8e6a04970f4b3e4ccd5ba4ae0e26))
+
 ## [0.1.5](https://github.com/laserburst/sf-ami/compare/0.1.4...0.1.5) (2025-03-10)
 
 ### Bug Fixes

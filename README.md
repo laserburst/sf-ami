@@ -30,8 +30,8 @@ Performs an AI-assisted review of code changes between two commits or branches.
 
 ```
 USAGE
-  $ sf ami review diff -a OpenAI -n <value> -m <value> [--json] [--flags-dir <value>] [-r <value>] [-f <value>] [-t
-    <value>] [-p <value>] [-c <value>] [-g GitHub] [-k <value>] [-w <value>] [-e <value>]
+  $ sf ami review diff -a OpenAI|Anthropic -n <value> -m <value> [--json] [--flags-dir <value>] [-r <value>] [-f
+    <value>] [-t <value>] [-p <value>] [-c <value>] [-g GitHub] [-k <value>] [-w <value>] [-e <value>]
 
 FLAGS
   -a, --ai-provider=<option>
@@ -40,7 +40,7 @@ FLAGS
       Supported values:
 
       - OpenAI
-      <options: OpenAI>
+      <options: OpenAI|Anthropic>
 
   -c, --config-file=<value>
       Path to the configuration file used by the code analyzer (optional).
