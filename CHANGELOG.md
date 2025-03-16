@@ -1,3 +1,9 @@
+## [0.2.1](https://github.com/laserburst/sf-ami/compare/0.2.0...0.2.1) (2025-03-16)
+
+### Bug Fixes
+
+- indentation level of suggested code for anthropic models ([f39a9e4](https://github.com/laserburst/sf-ami/commit/f39a9e4b0d8afcb7d90fd6cf0f7d1d8666e90579))
+
 # [0.2.0](https://github.com/laserburst/sf-ami/compare/0.1.5...0.2.0) (2025-03-16)
 
 ### Features
