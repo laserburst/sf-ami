@@ -12,11 +12,13 @@ const jsonSchema = {
         properties: {
           startLine: {
             type: 'integer',
-            description: 'The start line number of code block that this result is related to.',
+            description:
+              'Represent the start line of the range from the originaly provided Code Snippet which needs to be replaced with Code Suggestion.',
           },
           endLine: {
             type: 'integer',
-            description: 'The end line number of code block that this result is related to.',
+            description:
+              'Represent the end line of the range from the originaly provided Code Snippet which needs to be replaced with Code Suggestion.',
           },
           comment: {
             type: 'string',

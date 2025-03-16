@@ -14,7 +14,7 @@ export default class AnthropicAiClient extends AIProvider {
         {
           role: 'assistant',
           content:
-            'Response should contain **only** JSON in below JSON Schema:\n ' +
+            'Response **should be a valid JSON**, **without any formating** and following below JSON Schema:\n ' +
             JSON.stringify(AnthropicAiClient.getJsonSchema()),
         },
         { role: 'user', content: AnthropicAiClient.generatePrompt(codeSnippet, hints) },

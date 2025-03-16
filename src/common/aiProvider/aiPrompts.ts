@@ -10,7 +10,8 @@ export const reviewInstructions: string = `
   
 ## 2. Review Format
 - Provide feedback using **inline comments** and **code suggestions** when applicable.
-- Provide a startLine and endLine of code block that needs to be fixed with a comment and code suggestion.
+- \`startLine\` and \`endLine\` in the response, should **always** represent the line range **of the originaly provided Code Snippet** which needs to be replaced with Code Suggestion.
+- \`startLine\` and \`endLine\` in the response, don't have to be the same as in the \`hint\`, but should be within the range of the original code snippet.
 
 ### 2.1 Comments
 - Include a **specific fix recommendation** explaining the issue.
@@ -51,10 +52,10 @@ export const reviewInstructions: string = `
   - Example: \`public with sharing class ClassName\`
   
 ### 2.3 Suggestion Types
-- **REPLACE:** Replace the code between \`startLine\` and \`endLine\` with the suggested code.
-- **PREPEND:** Add the suggested code before \`startLine\`.
-- **APPEND:** Add the suggested code after \`endLine\`.
-- **REMOVE:** Delete unnecessary or redundant code.
+- **REPLACE**: Replace the code between \`startLine\` and \`endLine\` with the suggested code.
+- **PREPEND**: Add the suggested code before \`startLine\`.
+- **APPEND**: Add the suggested code after \`endLine\`.
+- **REMOVE**: Delete unnecessary or redundant code.
 
 ## 3. Handling Partial PR Code Diff
 - **If a breaking issue is introduced**, provide:

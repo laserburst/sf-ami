@@ -170,11 +170,16 @@ export default class AmiReviewDiff extends SfCommand<void> {
           // eslint-disable-next-line no-param-reassign
           formatedCodeSuggestion = review.codeSuggestion.replace(/\\n/g, '\n');
 
-          // get indent level of the code snippet
-          const indentLevel = codeSnippetLines[review.startLine - 1].search(/\S/);
+          const codeSuggestionLines = formatedCodeSuggestion.split(/(?<!\\)(?:\r?\n)/);
+          const prependLine = codeSnippetLines[review.startLine - 1];
+          const appendLine = codeSnippetLines[review.endLine - 1];
 
-          // add indent level to each line of the code suggestion
-          if (indentLevel > 0) {
+          // get indent level of the code snippet and suggestion
+          const indentLevel = codeSnippetLines[review.startLine - 1].search(/\S/);
+          const suggestionIndentLevel = formatedCodeSuggestion.search(/\S/);
+
+          // add indent level to each line of the code suggestion if it is different from the code snippet
+          if (indentLevel > 0 && indentLevel !== suggestionIndentLevel) {
             // eslint-disable-next-line no-param-reassign
             formatedCodeSuggestion = formatedCodeSuggestion
               .split(/(?<!\\)(?:\r?\n)/)
@@ -182,10 +187,6 @@ export default class AmiReviewDiff extends SfCommand<void> {
               .join('\n')
               .trimEnd();
           }
-
-          const codeSuggestionLines = formatedCodeSuggestion.split(/(?<!\\)(?:\r?\n)/);
-          const prependLine = codeSnippetLines[review.startLine - 1];
-          const appendLine = codeSnippetLines[review.endLine - 1];
 
           // Fix the code suggestion based on the code suggestion type
           // Sometimes LLM forgets to include original code snippet in the suggestion
