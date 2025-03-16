@@ -57,7 +57,7 @@ export default class AmiReviewDiff extends SfCommand<void> {
       char: 'a',
       required: true,
       multiple: false,
-      options: ['OpenAI'] as const,
+      options: ['OpenAI', 'Anthropic'] as const,
     })(),
     'ai-token': Flags.string({
       summary: messages.getMessage('flags.ai-token.summary'),
@@ -174,12 +174,14 @@ export default class AmiReviewDiff extends SfCommand<void> {
           const indentLevel = codeSnippetLines[review.startLine - 1].search(/\S/);
 
           // add indent level to each line of the code suggestion
-          // eslint-disable-next-line no-param-reassign
-          formatedCodeSuggestion = formatedCodeSuggestion
-            .split(/(?<!\\)(?:\r?\n)/)
-            .map((line) => ' '.repeat(indentLevel) + line)
-            .join('\n')
-            .trimEnd();
+          if (indentLevel > 0) {
+            // eslint-disable-next-line no-param-reassign
+            formatedCodeSuggestion = formatedCodeSuggestion
+              .split(/(?<!\\)(?:\r?\n)/)
+              .map((line) => ' '.repeat(indentLevel) + line)
+              .join('\n')
+              .trimEnd();
+          }
 
           const codeSuggestionLines = formatedCodeSuggestion.split(/(?<!\\)(?:\r?\n)/);
           const prependLine = codeSnippetLines[review.startLine - 1];
@@ -221,7 +223,8 @@ export default class AmiReviewDiff extends SfCommand<void> {
           this.log(`File: ${filePath}`);
           this.log(`Lines: ${review.startLine} - ${review.endLine}`);
           this.log(`Comment: ${review.comment}`);
-          this.log(`Code Suggestion: ${review.codeSuggestion}`);
+          this.log(`AI Code Suggestion: ${review.codeSuggestion}`);
+          this.log(`Formated Code Suggestion: ${formatedCodeSuggestion ?? 'No Suggestion'}`);
           this.log(`Code Suggestion Type: ${review.codeSuggestionType}`);
           this.log('-----------------------------------\n');
           const prCommentRequest: PullRequestComment = {

@@ -1,13 +1,14 @@
 import { OpenAI } from 'openai';
 import AIProvider from './aiProvider.js';
-import { OpenAiClient, ReviewHint, ReviewResponse } from './index.js';
+import { ReviewHint, ReviewResponse } from './index.js';
 
-export default class CpenAiClient extends AIProvider {
+export default class OpenAiClient extends AIProvider {
   public async reviewCode(codeSnippet: string, hints: ReviewHint[]): Promise<ReviewResponse> {
-    const openai = new OpenAI({ apiKey: this.getToken() });
+    const openai = new OpenAI({ apiKey: this.getApiKey() });
 
     const completion = await openai.chat.completions.create({
       model: this.getModel(),
+      max_tokens: this.getMaxTokens(), // eslint-disable-line camelcase
       messages: [
         {
           role: 'developer',
@@ -35,45 +36,7 @@ export default class CpenAiClient extends AIProvider {
         json_schema: {
           name: 'review_schema',
           strict: true,
-          schema: {
-            $schema: 'https://json-schema.org/draft/2020-12/schema',
-            type: 'object',
-            properties: {
-              reviews: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    startLine: {
-                      type: 'integer',
-                      description: 'The start line number of code block that this result is related to.',
-                    },
-                    endLine: {
-                      type: 'integer',
-                      description: 'The end line number of code block that this result is related to.',
-                    },
-                    comment: {
-                      type: 'string',
-                      description: 'A specific fix recommendation explaining the issue.',
-                    },
-                    codeSuggestion: {
-                      type: 'string',
-                      description: 'The suggested code to replace the code block.',
-                    },
-                    codeSuggestionType: {
-                      type: 'string',
-                      description: 'The type of suggestion: REPLACE, PREPEND, APPEND, or REMOVE.',
-                      enum: ['REPLACE', 'PREPEND', 'APPEND', 'REMOVE'],
-                    },
-                  },
-                  required: ['startLine', 'endLine', 'comment', 'codeSuggestion', 'codeSuggestionType'],
-                  additionalProperties: false,
-                },
-              },
-            },
-            required: ['reviews'],
-            additionalProperties: false,
-          },
+          schema: OpenAiClient.getJsonSchema(),
         },
       },
       store: true,
